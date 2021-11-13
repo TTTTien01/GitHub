@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .popup-container{
+            background-color: rgb(0, 0, 0,0.2);/*0.2 là độ trong suốt*/
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            top: 0;
+            right: 0;
+            opacity: 0;/*độ trong suôtd*/
+            display: none;/*đóng lại không hiển thị*/
+            transition: all 3s;/*3s = 3000ms ==>bắt buộc phải có khi tạo animation*/
+        }
+        .popup-container>.popup{
+            min-width: 300px;
+            max-width: 400px;
+            background-color: beige;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 20px auto;
+        }
+        .popup>[class^=popup]{ /*class có đầu là popup*/
+            padding: 10px;
+        }
+        .popup-footer{
+            text-align: right;
+        }
+        .show{
+            display: block !important;
+        }
+        .fade{
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <button id = openpopup>Nhấn để mở poput</button>
+    <div id="myPopup" class="popup-container">
+        <div class="popup">
+            <div class="popup-header">Tiêu đề</div>
+            <div class="popup-body">Nội dung</div>
+            <div class="popup-footer">
+                <button class="close-popup">Đóng</button> 
+            </div>
+        </div>
+    </div>
+    <script>
+        var btnOpen = document.getElementById("openpopup");
+        var popup = document.getElementById("myPopup");
+
+        btnOpen.onclick = function(ev){
+            popup.classList.add("show");
+            setTimeout(function(){
+                popup.classList.add("fade");
+            },0);
+        }
+
+        //tìm btn có class [close-popup] bên trong popup
+        var btnClose = popup.querySelector(".close-popup");
+        btnClose.onclick = function(ev){
+            //xóa opacity trc
+            popup.classList.remove("fade");
+            //sau o,5s xóa display:none
+            setTimeout(function(){
+                popup.classList.remove("show");
+            },3000);//3000ms
+        }
+    </script>
+</body>
+</html>
